@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Welcome to Avatar Customizr :: Tech Summit Ogun</title>
+		 <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+
+		{{ css('https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css')}}
+
+		{{ css('main.css') }}
+		{{ script('html2canvas.min.js')}}
+		{{ script('download.js')}}
+		{{ script('jquery.js')}}
+		{{ css('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')}}
+		<style>
+		 .bg-wrapper {
+			 background: url('/wonders.jpg');
+			 background-repeat:no-repeat;
+       background-size: 650px;
+       background-position:top;
+			 min-height: 600px;
+			 margin: 0px auto;
+       width: 590px;
+		 }
+
+     .image-placeholder {
+       background: midnightblue;
+       width: 290px;
+       height: 290px;
+       position: relative;
+       top: 255px;
+       left: 17px;
+       border-radius: 100%;
+       padding: 4px;
+       text-align: center;
+       color: #FFF;
+       cursor:pointer;
+       overflow:hidden;
+     }
+
+     h3 {
+       padding-top: 100px;
+     }
+		</style>
+		<script>
+
+		$(function(){
+			$('.img-uploader').click(function(e) {
+				$('#file-upload').click()
+			})
+
+			$('#exporting').click(function() {
+
+			if(window.WebGLRenderingContext) {
+				$('#exporting').text('please wait...').attr('disabled', 'disabled')
+				html2canvas(document.querySelector(".bg-wrapper")).then( function(canvas) {
+					download(canvas.toDataURL(), "wonder-of-praise.png", "image/png")
+					$('#exporting').text('Export Image').removeAttr('disabled')
+				});
+			}
+			else {
+				alert('Sorry, Your browser is not supported !!');
+			}
+
+		})
+
+			$('#file-upload').change(function() {
+				var reader = new FileReader();
+				reader.onload = function(e) {
+					var preview = document.getElementById('img-holder1');
+					preview.src = e.target.result;
+					preview.style.maxWidth = '300px';
+					preview.style.maxHeight = '300px';
+				}
+				reader.readAsDataURL(this.files[0]);
+			})
+
+		/*	var click = 0;
+			 $('.bg-color').click(function(e) {
+				if(click == 0 ) {
+					 click = 1;
+					 $('.main-avatar').css('background-color', '#000')
+					 $('.avatar').css('background-color', '#CCC')
+					$(this).text('Light Theme')
+				} else {
+					 click = 0;
+					 $('.main-avatar').css('background-color', 'rgba(255, 255, 255, 0.9)')
+					 $('.avatar').css('background-color', '#000')
+					 $(this).text('Dark Theme')
+				}
+			 })*/
+		})
+		</script>
+
+	</head>
+	<body>
+
+	<!--  <div class="col-md-4 col-md-offset-4" >
+
+
+
+
+</div>  -->
+<br/><br/>
+<div class="bg-wrapper container">
+  <div class="image-placeholder img-uploader"><img src="/avatar.png" style="max-width: 300px;max-height: 300px;" class="img-holder" id="img-holder1" /></div>
+
+</div>
+<br/>
+<div class="col-md-4 col-md-offset-4">
+ <div class="text-center">
+      <a href="#" class="save-info" style="background: #000 !important;padding: 10px;color: #FFF;font-weight:bold;" id="exporting">Export Image </a>
+     </div>
+
+	<div style="color: #FFF;margin-top: 10px;text-align:center;">Developed with <i class="fa fa-heart"></i> by <a href="http://abiodunsolomon.tk" style="color: #CCC">Azeez Abiodun Solomon</a>
+
+	<p>
+	<a href="http://facebook.com/iamhabbeboy" style="color: #CCC"><i class="fa fa-facebook"></i> @iamhabbeboy</a>
+	| &nbsp; <a href="http://twitter.com/habbeboy" style="color: #CCC"><i class="fa fa-twitter"></i> @habbeboy</a> | &nbsp; <a href="mailto:iamhabbeboy@gmail.com" style="color: #CCC"><i class="fa fa-envelope"></i></a>
+	</div>
+</div>
+<div class="clearfix"></div>
+
+
+
+	<div class="">
+		<form class="" enctype="multipart/form-data" method="post">
+			<input type="file" id="file-upload" style="height: 1px;">
+		</form>
+	</div>
+
+	</body>
+</html>
